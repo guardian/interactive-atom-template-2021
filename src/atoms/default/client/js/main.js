@@ -14,3 +14,8 @@ setTimeout(() => {
     window.resize();
   }
 }, 100);
+
+const hello = "hello";
+const testObject = { a: hello };
+console.log(testObject?.a);
+console.log(testObject?.b);

@@ -1,0 +1,3 @@
+<div class="interactive-atom__container">{{ mainHtml }}</div>
+<%= htmlWebpackPlugin.tags.headTags.filter((tag) =>
+tag.attributes.src.includes(atomName)) .join('') %>

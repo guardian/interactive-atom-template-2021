@@ -26,17 +26,6 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js"],
   },
-  plugins: entrypoints.map(
-    (ep) =>
-      new HtmlWebpackPlugin({
-        filename: `${ep}/index.html`,
-        template: "index.ejs",
-        inject: false,
-        templateParameters: {
-          atomName: ep,
-        },
-      })
-  ),
   output: {
     filename: "./[name]/main.js",
     path: path.resolve(__dirname, "./dist"),

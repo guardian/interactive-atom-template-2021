@@ -14,7 +14,18 @@ module.exports = {
   entry: Object.fromEntries(
     entrypoints.map((ep) => [ep, `${baseEntryPoint}${ep}/client/js/main.js`])
   ),
-
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /(node_modules|dist)/,
+        use: ["babel-loader"],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ["*", ".js"],
+  },
   plugins: entrypoints.map(
     (ep) =>
       new HtmlWebpackPlugin({

@@ -1,6 +1,6 @@
 var path = require("path");
 
-const { merge } = require("webpack-merge");
+const { mergeWithCustomize } = require("webpack-merge");
 const common = require("./webpack.common.js");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -20,19 +20,38 @@ const baseEntryPoint = "./src/atoms/";
 const atoms = getDirectories(baseEntryPoint);
 const harnesses = getFiles("./harness");
 
-const harnessFiles = atoms.map((atom) =>
+const atomHtmlTemplate = `<div class="interactive-atom__container">{{ mainHtml }}</div>`;
+
+const htmlWebpackPlugins = atoms.map((atom) =>
   harnesses.map((harness) => {
     return new HtmlWebpackPlugin({
-      filename: `${atom}/${harness}.html`,
+      filename:
+        harness === "_index" ? `${harness}.html` : `${atom}/${harness}.html`,
       template: path.resolve(__dirname, `./harness/${harness}.html`),
       inject: "body",
+      templateParameters: {
+        html: atomHtmlTemplate,
+        css: `${atom}/main.css`,
+        js: `${atom}/main.js`,
+        atoms,
+      },
     });
   })
 );
 
-module.exports = merge(common, {
+module.exports = mergeWithCustomize({
+  customizeArray(a, b, key) {
+    if (key === "plugins") {
+      return [...b, ...a];
+    }
+    // Fall back to default merging
+    return undefined;
+  },
+})(common, {
   mode: "development",
   devtool: "inline-source-map",
-  devServer: {},
-  plugins: harnessFiles.flat(),
+  devServer: {
+    index: "_index.html",
+  },
+  plugins: htmlWebpackPlugins.flat(),
 });

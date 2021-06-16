@@ -1,5 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+
 const { readdirSync } = require("fs");
 
 const getDirectories = (source) =>
@@ -26,6 +28,7 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js"],
   },
+  plugins: [new WebpackManifestPlugin()],
   output: {
     filename: "./[name]/main.js",
     path: path.resolve(__dirname, "./dist"),

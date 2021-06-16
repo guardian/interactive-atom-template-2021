@@ -2857,15 +2857,11 @@ stateChange;script.src=src}else document.write('\x3cscript src\x3d"'+src+'" defe
                  <script>
                      var fonts=[].slice.apply(window.parent.document.styleSheets).filter(function(sheet){return sheet.ownerNode.className.indexOf(&quot;webfont&quot;)>-1}).map(function(sheet){return sheet.ownerNode.textContent}).join(&quot; &quot;);var css=document.createElement(&quot;style&quot;);css.textContent=fonts;document.head.appendChild(css);
                  </script>
-                 <style>
-                     <%- css %>
-                 </style>
+                 <link rel=&quot;stylesheet&quot; href=&quot;<%= css %>&quot;>
              </head>
              <body>
                  <%- html %>
-                 <script>
-                     <%- js %>
-                 </script>
+                 <script defer=&quot;defer&quot; src=&quot;<%= js %>&quot; ></script>
                  <script>
                      function resize(){window.frameElement.height=document.body.offsetHeight}window.addEventListener(&quot;resize&quot;,resize);resize();
                  </script>

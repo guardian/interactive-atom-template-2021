@@ -19,8 +19,11 @@ module.exports = {
     (ep) =>
       new HtmlWebpackPlugin({
         filename: `${ep}/index.html`,
-        templateContent: `<div class="interactive-atom__container">{{mainHtml}}</div>`,
-        inject: "body",
+        template: "index.ejs",
+        inject: false,
+        templateParameters: {
+          atomName: ep,
+        },
       })
   ),
   output: {

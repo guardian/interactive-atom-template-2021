@@ -1,1 +1,0 @@
-setTimeout((()=>{if(window.resize){const e=document.querySelector("html"),t=document.querySelector("body");e.style.overflow="hidden",e.style.margin="0px",e.style.padding="0px",t.style.overflow="hidden",t.style.margin="0px",t.style.padding="0px",window.resize()}}),100);

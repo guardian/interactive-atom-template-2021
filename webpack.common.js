@@ -1,5 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+
 const { readdirSync } = require("fs");
 
 const getDirectories = (source) =>
@@ -26,17 +28,7 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js"],
   },
-  plugins: entrypoints.map(
-    (ep) =>
-      new HtmlWebpackPlugin({
-        filename: `${ep}/index.html`,
-        template: "index.ejs",
-        inject: false,
-        templateParameters: {
-          atomName: ep,
-        },
-      })
-  ),
+  plugins: [new WebpackManifestPlugin()],
   output: {
     filename: "./[name]/main.js",
     path: path.resolve(__dirname, "./dist"),

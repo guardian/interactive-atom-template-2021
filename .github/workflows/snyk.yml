@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   security:
     uses: guardian/.github/.github/workflows/sbt-node-snyk.yml@main
@@ -14,7 +17,6 @@ jobs:
       ORG: guardian-dotcom-n2y
       SKIP_NODE: false
       NODE_VERSION_FILE: ./.nvmrc
-      
-      
+
     secrets:
        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
